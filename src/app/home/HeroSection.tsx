@@ -5,8 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/Container";
-import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
-import { ArrowRight, Copy, Check } from "lucide-react";
+import { ArrowRight, Copy, Check, ChevronRight } from "lucide-react";
 import { GlowCard, GlowButton } from "@/components/ui/glowing-effect";
 
 export function HeroSection() {
@@ -54,10 +53,14 @@ assert:
   }, [yamlCode]);
 
   return (
-    <section className="relative overflow-hidden min-h-[90vh] flex items-center z-0">
-      {/* Animated liquid background with slate texture */}
-      <AnimatedBackground variant="hero" showSlateTexture={true} />
-      <Container size="large" className="relative z-10 section-spacing">
+    <section className="relative overflow-hidden min-h-[90vh] flex items-center z-0 bg-white dark:bg-[#0a0a0a]">
+      {/* Clean, soothing background pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#141414_1px,transparent_1px),linear-gradient(to_bottom,#141414_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-50 dark:opacity-100"></div>
+      
+      {/* Subtle top ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-30 dark:opacity-20 pointer-events-none blur-[100px] bg-blue-500/20 rounded-full"></div>
+
+      <Container size="large" className="relative z-10 py-20 lg:py-0">
         <div className="relative flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Left side hero content */}
           <motion.div
@@ -72,27 +75,23 @@ assert:
               New: CHKware v0.5.0 Released
             </span>
 
-            {/* Headline */}
-            <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-black dark:text-white mb-6">
+            {/* Clean, high-contrast headline */}
+            <h1 className="font-semibold text-5xl md:text-6xl lg:text-7xl tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.1]">
               Reduce API{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-blue-600 dark:text-blue-500">
                 regression cost
-              </span>{" "}
-              and{" "}
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                release
-              </span>{" "}
-              quickly.
+              </span>
+              <br className="hidden lg:block" />{" "}
+              and release quickly.
             </h1>
 
-            {/* Subheadline */}
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0">
-              Streamline your API development and testing with easy-to-use,
-              reusable YAML configuration specs.
+            {/* Simplified Subheadline */}
+            <p className="text-xl text-gray-500 dark:text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+              Streamline your testing with readable YAML specs. Built for modern teams who want safety without the heavy lifting.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <Button asChild className="px-6 py-2 h-12 text-base border border-gray-700 dark:border-gray-300 bg-black/90 dark:bg-white text-white dark:text-black backdrop-filter backdrop-blur-sm hover:bg-black dark:hover:bg-gray-100">
                 <Link href="https://www.chkware.com/docs/quick-start/">
                   Quick Start <ArrowRight className="ml-2 h-5 w-5" />

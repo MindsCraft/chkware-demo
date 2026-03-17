@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/lib/theme-context";
@@ -11,12 +11,16 @@ import { SearchConsoleMeta } from "@/components/analytics/SearchConsole";
 import { PerformanceOptimizer } from "@/components/performance/PerformanceOptimizer";
 import "@/styles/globals.css";
 
-// Load Figtree font from Google Fonts
-const figtree = Figtree({
+// Load fonts from Google Fonts
+const geistSans = Geist({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-figtree',
+  variable: '--font-geist-sans',
+  preload: true,
+});
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
   preload: true,
 });
 
@@ -74,7 +78,7 @@ export default function RootLayout({
               // Font loading verification
               document.addEventListener('DOMContentLoaded', function() {
                 const testElement = document.createElement('div');
-                testElement.style.fontFamily = 'var(--font-figtree, system-ui), sans-serif';
+                testElement.style.fontFamily = 'var(--font-geist-sans, system-ui), sans-serif';
                 testElement.style.position = 'absolute';
                 testElement.style.visibility = 'hidden';
                 testElement.textContent = 'Font Test';
@@ -82,7 +86,7 @@ export default function RootLayout({
                 
                 const computedStyle = window.getComputedStyle(testElement);
                 console.log('🎨 Font family applied:', computedStyle.fontFamily);
-                console.log('🎨 CSS Variable --font-figtree:', getComputedStyle(document.documentElement).getPropertyValue('--font-figtree'));
+                console.log('🎨 CSS Variable --font-geist-sans:', getComputedStyle(document.documentElement).getPropertyValue('--font-geist-sans'));
                 console.log('🎨 Body classes:', document.body.className);
                 
                 document.body.removeChild(testElement);
@@ -91,7 +95,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${figtree.className} ${figtree.variable} font-sans antialiased text-gray-900 dark:text-gray-100 transition-colors duration-200`}>
+      <body className={`${geistSans.className} ${geistSans.variable} ${geistMono.variable} font-sans antialiased text-gray-900 dark:text-gray-100 transition-colors duration-200`}>
         <GoogleAnalytics />
         <PerformanceOptimizer />
         <ThemeProvider>

@@ -21,12 +21,8 @@ const Feature = ({
         index < 3 && "lg:border-b dark:border-neutral-800"
       )}
     >
-      {index < 4 && (
-        <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-t from-blue-100/80 via-purple-100/60 to-transparent dark:from-blue-900/40 dark:via-purple-900/30 dark:to-transparent pointer-events-none" />
-      )}
-      {index >= 4 && (
-        <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-b from-blue-100/80 via-purple-100/60 to-transparent dark:from-blue-900/40 dark:via-purple-900/30 dark:to-transparent pointer-events-none" />
-      )}
+      {/* Replaced heavy gradients with a soothing, flat hover state */}
+      <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-white dark:bg-neutral-900/50 pointer-events-none" />
       <div className="mb-4 relative z-10 px-10 text-neutral-600 dark:text-neutral-400">
         {icon}
       </div>

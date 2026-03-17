@@ -3,37 +3,35 @@
 import React from "react";
 import { Container } from "@/components/ui/Container";
 import { motion } from "framer-motion";
-import { MovingBorder } from "@/components/ui/moving-border";
-import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import Image from "next/image";
 
 export function PrimaryFeaturesSection() {
   const features = [
     {
-      title: "Revolutionize Your API Testing – Achieve Up to 4x Faster Automation!",
-      description: "Boost efficiency and deliver results with unmatched speed and reliability.",
+      label: "AUTOMATION",
+      title: "4x Faster API Testing",
+      description: "Achieve unprecedented speed in your testing pipeline. CHKware automates the complex validation tasks that usually slow down release cycles.",
       image: "/images/speed-automation-demo.svg",
-      imageAlt: "High-speed automation dashboard showing 4x performance improvement"
+      imageAlt: "High-speed automation dashboard"
     },
     {
-      title: "Accelerate Your API Development – Launch Projects Faster Than Ever!",
-      description: "Streamline your workflow with tools designed for speedy delivery and precision in mind.",
+      label: "VELOCITY",
+      title: "Rapid Development",
+      description: "Designed for speed and precision. Get from specification to a fully tested API in significantly less time than traditional tools.",
       image: "/images/fast-development-demo.svg",
-      imageAlt: "Streamlined development workflow showing rapid project delivery"
+      imageAlt: "Streamlined development workflow"
     },
     {
-      title: "Define Your Expectations – Let Us Handle the Details!",
-      description: "Simplify API testing with low-code automation that delivers accuracy and robustness.",
+      label: "LOW-CODE",
+      title: "Human-Centric Specs",
+      description: "Define your expectations in clean YAML. Let CHKware handle the technical heavy lifting, deep structural assertions, and error handling.",
       image: "/images/low-code-demo.svg",
-      imageAlt: "Low-code interface showing simplified API testing setup"
+      imageAlt: "Low-code interface"
     }
   ];
 
   return (
-    <section className="py-24 relative overflow-hidden bg-white dark:bg-gray-950 z-0">
-      {/* Animated background with gradient variant */}
-      <AnimatedBackground variant="gradient" showSlateTexture={false} />
-
+    <section className="py-32 relative bg-white dark:bg-[#0a0a0a]">
       <Container size="large" className="relative z-10">
         {/* Section header */}
         <motion.div
@@ -43,11 +41,8 @@ export function PrimaryFeaturesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black dark:text-white mb-4">
-            Everything you need for{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              API testing
-            </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight leading-[1.1]">
+            Everything you need for API testing
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 mx-auto max-w-3xl">
             CHKware provides a complete toolkit for modern API development and testing,
@@ -55,52 +50,48 @@ export function PrimaryFeaturesSection() {
           </p>
         </motion.div>
 
-        {/* Features */}
-        <div className="space-y-24">
+        {/* Features Minimalist Rows */}
+        <div className="space-y-32">
           {features.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
-                } items-center gap-16 lg:gap-24`}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className={`flex flex-col ${
+                index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
+              } items-center gap-16 lg:gap-24`}
             >
-              {/* Content - Reduced width */}
-              <div className="lg:w-2/5 text-center lg:text-left">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              {/* Typography Column */}
+              <div className="lg:w-1/2 flex flex-col group">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="font-mono text-xs text-blue-600 dark:text-blue-500 font-medium tracking-widest bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded">
+                    {feature.label}
+                  </span>
+                  <div className="h-[1px] flex-grow bg-gray-100 dark:bg-white/5 opacity-50 group-hover:opacity-100 transition-opacity" />
+                </div>
+                
+                <h3 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight leading-tight">
                   {feature.title}
                 </h3>
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                
+                <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed font-normal">
                   {feature.description}
                 </p>
               </div>
 
-              {/* Image - Increased size */}
-              <div className="lg:w-3/5 w-full">
-                <div className="relative w-full max-w-2xl mx-auto">
-                  <div className="relative bg-transparent p-[1px] rounded-2xl overflow-hidden">
-                    <MovingBorder duration={3000} rx="20%" ry="20%">
-                      <div className="h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--blue-500)_40%,transparent_60%)]" />
-                    </MovingBorder>
-
-                    <div className="relative aspect-[5/3] w-full bg-white/20 dark:bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl shadow-black/10 dark:shadow-black/30">
-                      {/* Glass reflection effect */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent dark:from-white/10 dark:via-transparent dark:to-transparent" />
-
-                      {/* Inner glass border */}
-                      <div className="absolute inset-[1px] rounded-2xl border border-white/20 dark:border-white/5" />
-
-                      <Image
-                        src={feature.image}
-                        alt={feature.imageAlt}
-                        fill
-                        className="object-contain p-12 relative z-10"
-                        sizes="(max-width: 768px) 100vw, 60vw"
-                      />
-                    </div>
-                  </div>
+              {/* Minimalist Image Column */}
+              <div className="lg:w-1/2 w-full">
+                <div className="relative aspect-[16/10] w-full bg-gray-50/50 dark:bg-white/[0.02] rounded-[2rem] border border-gray-100 dark:border-white/[0.05] overflow-hidden group-hover:border-blue-500/20 transition-colors duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <Image
+                    src={feature.image}
+                    alt={feature.imageAlt}
+                    fill
+                    className="object-contain p-10 sm:p-12 transition-transform duration-700 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
               </div>
             </motion.div>

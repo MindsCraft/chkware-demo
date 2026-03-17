@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/Container";
-import { Send, MessageCircle, Mail, Phone, CheckCircle, AlertCircle } from "lucide-react";
+import { Send, MessageSquareText, Mail, PhoneCall, CheckCircle, AlertCircle, ArrowRight } from "lucide-react";
 import { GlowButton, GlowingEffect } from "@/components/ui/glowing-effect";
 import { LabelInputContainer, Label, Input, Textarea } from "@/components/ui/signup-form";
 
@@ -30,7 +30,7 @@ const contactSections = [
     title: "Chat with us",
     description: "Speak to our friendly team via live chat.",
     items: [
-      { text: "Start a live chat", href: "#", icon: MessageCircle },
+      { text: "Start a live chat", href: "#", icon: MessageSquareText },
       { text: "Shoot us an email", href: "mailto:info@chkware.com", icon: Mail },
       { text: "Message us on X", href: "https://twitter.com/chkware", icon: XIcon }
     ]
@@ -40,7 +40,7 @@ const contactSections = [
     title: "Call us",
     description: "Call our team Mon-Fri from 8am to 5pm.",
     items: [
-      { text: "+880 1878 239734", href: "tel:+18801878239734", icon: Phone }
+      { text: "+880 1878 239734", href: "tel:+18801878239734", icon: PhoneCall }
     ]
   }
 ];
@@ -132,17 +132,19 @@ function ContactSectionCard({ section }: ContactSectionProps) {
         {section.items.map((item, index) => {
           const IconComponent = item.icon;
           return (
-            <div key={index} className="flex items-center gap-3">
-              <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
-                <IconComponent className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            <a
+              key={index}
+              href={item.href}
+              className="group flex flex-col items-start gap-1 py-4 border-b border-gray-100 dark:border-gray-800/60 last:border-0"
+            >
+              <div className="flex items-center gap-3 w-full">
+                <IconComponent className="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300" />
+                <span className="text-lg font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  {item.text}
+                </span>
+                <ArrowRight className="w-4 h-4 ml-auto text-gray-300 dark:text-gray-700 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-300" />
               </div>
-              <a
-                href={item.href}
-                className="text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors underline decoration-2 underline-offset-4"
-              >
-                {item.text}
-              </a>
-            </div>
+            </a>
           );
         })}
       </div>
@@ -275,11 +277,8 @@ export function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-6">
-            Need Help With{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              CHKware?
-            </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight leading-[1.1]">
+            Need Help With CHKware?
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 mx-auto max-w-3xl">
             Get in touch with our support team or explore additional resources
