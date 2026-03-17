@@ -123,11 +123,11 @@ export function measureCoreWebVitals() {
 // Prefetch important pages
 export function prefetchImportantPages() {
   if (typeof window !== 'undefined') {
-    const pagesToPrefetch = [
-      '/features',
-      '/pricing',
-      '/docs',
-      '/contact'
+    const pagesToPrefetch: string[] = [
+      // '/features',   // TODO: Uncomment when these pages exist
+      // '/pricing',
+      // '/docs',
+      // '/contact'
     ];
 
     pagesToPrefetch.forEach(page => {
@@ -142,6 +142,7 @@ export function prefetchImportantPages() {
 // Service Worker registration for caching
 export function registerServiceWorker() {
   if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    /*
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/sw.js')
         .then((registration) => {
@@ -151,6 +152,7 @@ export function registerServiceWorker() {
           console.log('SW registration failed: ', registrationError);
         });
     });
+    */
   }
 }
 
