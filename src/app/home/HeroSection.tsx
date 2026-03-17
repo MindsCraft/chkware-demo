@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -21,6 +21,37 @@ export function HeroSection() {
       console.error('Failed to copy text: ', err);
     }
   };
+
+  // Terminal Animation State
+  const yamlCode = `version: default:http
+
+request:
+  url: "https://api.example.com/health"
+  method: GET
+
+assert:
+  - status == 200
+  - body.status == "healthy"`;
+
+  const [displayedCode, setDisplayedCode] = useState("");
+  const [phase, setPhase] = useState<"typing" | "running" | "done">("typing");
+
+  useEffect(() => {
+    let index = 0;
+    const typingInterval = setInterval(() => {
+      setDisplayedCode(yamlCode.slice(0, index));
+      index++;
+      if (index > yamlCode.length) {
+        clearInterval(typingInterval);
+        setTimeout(() => {
+          setPhase("running");
+          setTimeout(() => setPhase("done"), 1500); // Simulate command running time
+        }, 800);
+      }
+    }, 45); // Typing speed
+
+    return () => clearInterval(typingInterval);
+  }, [yamlCode]);
 
   return (
     <section className="relative overflow-hidden min-h-[90vh] flex items-center z-0">
@@ -95,70 +126,85 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <div className="relative">
-              <GlowCard className="rounded-xl">
-                <div className="relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-                  <div className="bg-gray-100 dark:bg-gray-800 p-1 flex items-center space-x-1">
-                    <div className="h-2.5 w-2.5 rounded-full bg-red-500"></div>
-                    <div className="h-2.5 w-2.5 rounded-full bg-yellow-500"></div>
-                    <div className="h-2.5 w-2.5 rounded-full bg-green-500"></div>
-                    <div className="ml-2 text-xs font-medium text-gray-600 dark:text-gray-300">
-                      user-login-request.chk
-                    </div>
+              <div className="relative rounded-xl overflow-hidden shadow-2xl bg-[#0d1117] border border-gray-800">
+                {/* MacOS style Terminal Header */}
+                <div className="bg-[#161b22] px-4 py-3 flex items-center justify-between border-b border-gray-800">
+                  <div className="flex space-x-2">
+                    <div className="h-3 w-3 rounded-full bg-[#ff5f56]"></div>
+                    <div className="h-3 w-3 rounded-full bg-[#ffbd2e]"></div>
+                    <div className="h-3 w-3 rounded-full bg-[#27c93f]"></div>
                   </div>
-                  <pre className="bg-gray-900 p-4 rounded-b-lg text-xs sm:text-sm overflow-auto text-gray-100">
-                    <code>
-                      {`# Get joke 614 from XKCD.com
----
-version: default:http:0.7.2
-
-request:
-  url: "https://xkcd.com/614/info.0.json"
-  method: GET
-
-expose:
-  - <% _response %>
-
-
-`}
-                    </code>
-                  </pre>
+                  <div className="text-xs font-mono text-gray-400 tracking-wider">health-check.chk</div>
+                  <div className="w-12"></div>
                 </div>
-              </GlowCard>
 
-              {/* Floating status badge */}
-              <div className="absolute -bottom-8 -left-12 rounded-lg bg-white dark:bg-gray-900 p-4 border border-gray-200 dark:border-gray-800 text-center w-60 animate-fadeInUp-delay-2">
-                <div className="flex justify-between items-center mb-2">
-                  <div className="h-10 w-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-                    <svg
-                      className="h-6 w-6 text-green-600 dark:text-green-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                {/* Terminal Body */}
+                <div className="p-5 font-mono text-sm sm:text-base leading-relaxed h-[420px] sm:h-[450px] flex flex-col">
+                  {/* Typed YAML Code */}
+                  <div className="text-[#c9d1d9] whitespace-pre-wrap flex-none">
+                    {displayedCode}
+                    {phase === "typing" && (
+                      <span className="ml-[2px] inline-block w-2 bg-[#c9d1d9] animate-pulse h-5 align-middle"></span>
+                    )}
+                  </div>
+
+                  {/* Running Command Phase */}
+                  {phase === "running" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-6 border-t border-gray-800/60 pt-4"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <div className="font-medium text-gray-700 dark:text-gray-300">
-                    Test passed
-                  </div>
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  All 16 assertions passed in 1.2s
-                </div>
-              </div>
+                      <span className="text-blue-400">$</span> <span className="text-[#c9d1d9]">chk run health-check.chk</span>
+                      <span className="ml-[2px] inline-block w-2 bg-[#c9d1d9] animate-pulse h-5 align-middle"></span>
+                    </motion.div>
+                  )}
 
-              {/* Floating YAML badge */}
-              <div className="absolute -top-6 -right-6 rounded-lg bg-white dark:bg-gray-900 p-3 border border-gray-200 dark:border-gray-800 text-center animate-fadeInUp-delay-1">
-                <div className="font-medium text-sm text-gray-800 dark:text-gray-200">
-                  Low-code
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  YAML Configuration
+                  {/* Test Results Phase */}
+                  {phase === "done" && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="mt-6 border-t border-gray-800/60 pt-4"
+                    >
+                      <div className="text-[#c9d1d9] mb-3">
+                        <span className="text-blue-400">$</span> chk run health-check.chk
+                      </div>
+
+                      <div className="space-y-2 mt-2">
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
+                          className="flex items-start text-[#3fb950] whitespace-normal"
+                        >
+                          <Check className="h-5 w-5 mr-2 shrink-0 mt-[2px]" />
+                          <span className="break-all sm:break-normal">GET /health <span className="text-gray-500">(200 OK)</span> <span className="text-yellow-500/80">- 84ms</span></span>
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}
+                          className="flex items-start text-[#3fb950] pl-7"
+                        >
+                          <Check className="h-4 w-4 mr-2 shrink-0 mt-[2px]" />
+                          <span>status == 200</span>
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.7 }}
+                          className="flex items-start text-[#3fb950] pl-7"
+                        >
+                          <Check className="h-4 w-4 mr-2 shrink-0 mt-[2px]" />
+                          <span>body.status == "healthy"</span>
+                        </motion.div>
+                      </div>
+
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1 }}
+                        className="mt-6 text-blue-400 font-bold bg-blue-900/20 py-2 px-3 rounded inline-block"
+                      >
+                        ✓ 2/2 assertions passed in 0.2s
+                      </motion.div>
+                    </motion.div>
+                  )}
                 </div>
               </div>
             </div>

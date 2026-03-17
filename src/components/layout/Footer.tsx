@@ -35,21 +35,32 @@ const navigation = {
 
 export function Footer() {
   return (
-    <footer className="relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/30 overflow-hidden">
-      {/* Glowing effect from bottom */}
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-blue-500/10 via-blue-500/5 to-transparent pointer-events-none"></div>
+    <footer className="relative bg-white dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-gray-800 overflow-hidden pt-20">
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
 
-      <Container size="large">
+      {/* Decorative Grid Pattern */}
+      <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-[0.02] dark:opacity-[0.05] pointer-events-none"></div>
+
+      {/* Subtle Glow Orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none mix-blend-multiply dark:mix-blend-screen"></div>
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl pointer-events-none mix-blend-multiply dark:mix-blend-screen"></div>
+
+      <Container size="large" className="relative z-10">
         <div className="py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-x-8 gap-y-16">
+            {/* Company Info - Takes up more space */}
+            <div className="lg:col-span-2 flex flex-col">
               <div className="mb-6">
-                <Logo className="h-8 w-auto mb-6" />
+                <Link href="/" className="inline-block">
+                  <Logo className="h-8 w-auto mb-6 hover:scale-105 transition-transform duration-300" />
+                </Link>
+                <p className="text-gray-600 dark:text-gray-400 text-sm max-w-xs mb-8 leading-relaxed">
+                  Streamlining API development and testing with easy-to-use, reusable YAML configuration specs for modern DevOps teams.
+                </p>
 
                 {/* Social Links */}
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-4">
                   {socialLinks.map((item) => {
                     const IconComponent = item.icon;
                     return (
@@ -58,10 +69,10 @@ export function Footer() {
                         href={item.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-white/60 hover:bg-white/80 dark:bg-gray-800/60 dark:hover:bg-gray-700/80 backdrop-blur-sm border border-white/20 dark:border-gray-700/30 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
+                        className="group p-2.5 rounded-xl bg-gray-50 hover:bg-white dark:bg-gray-900 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1"
                       >
                         <span className="sr-only">{item.name}</span>
-                        <IconComponent className="h-4 w-4" />
+                        <IconComponent className="h-5 w-5 transform group-hover:scale-110 transition-transform duration-300" />
                       </a>
                     );
                   })}
@@ -70,18 +81,19 @@ export function Footer() {
             </div>
 
             {/* Solutions */}
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="lg:col-span-1">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-6 tracking-wide uppercase">
                 Solutions
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {navigation.solutions.map((item) => (
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                      className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors duration-200 relative group inline-block"
                     >
                       {item.name}
+                      <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
                     </Link>
                   </li>
                 ))}
@@ -89,18 +101,19 @@ export function Footer() {
             </div>
 
             {/* Resources */}
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="lg:col-span-1">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-6 tracking-wide uppercase">
                 Resources
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {navigation.resources.map((item) => (
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                      className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors duration-200 relative group inline-block"
                     >
                       {item.name}
+                      <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
                     </Link>
                   </li>
                 ))}
@@ -108,22 +121,44 @@ export function Footer() {
             </div>
 
             {/* Company */}
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">
-                Company
-              </h3>
-              <ul className="space-y-3">
-                {navigation.company.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <div className="lg:col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-6 tracking-wide uppercase">
+                    Company
+                  </h3>
+                  <ul className="space-y-4">
+                    {navigation.company.map((item) => (
+                      <li key={item.name}>
+                        <Link
+                          href={item.href}
+                          className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors duration-200 relative group inline-block"
+                        >
+                          {item.name}
+                          <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Status Card */}
+                <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 flex flex-col justify-center mt-4 sm:mt-0">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="relative flex h-3 w-3 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">All Systems Operational</span>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                    Our API and dashboard services are currently running smoothly with 99.99% uptime.
+                  </p>
+                  <Link href="#" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                    View Status Page →
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -136,15 +171,15 @@ export function Footer() {
               </div>
 
               {/* Legal Links - Right */}
-              <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
-                <Link href="/terms" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
-                  Terms
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                <Link href="/terms" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  Terms of Service
                 </Link>
-                <Link href="/privacy" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
-                  Privacy
+                <Link href="/privacy" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  Privacy Policy
                 </Link>
-                <Link href="/cookies" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
-                  Cookies
+                <Link href="/cookies" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  Cookie Settings
                 </Link>
                 <Link href="/sitemap" className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
                   Sitemap
