@@ -53,12 +53,59 @@ assert:
   }, [yamlCode]);
 
   return (
-    <section className="relative overflow-hidden min-h-[90vh] flex items-center z-0 bg-white dark:bg-[#0a0a0a]">
-      {/* Clean, soothing background pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#141414_1px,transparent_1px),linear-gradient(to_bottom,#141414_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-50 dark:opacity-100"></div>
-      
-      {/* Subtle top ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-30 dark:opacity-20 pointer-events-none blur-[100px] bg-blue-500/20 rounded-full"></div>
+    <section className="relative overflow-hidden min-h-[90vh] flex items-center z-0 bg-white dark:bg-black">
+      {/* Magnetic Dust Field Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        
+        {/* The Dust Particles */}
+        <div className="absolute inset-0">
+          {[...Array(12)].map((_, lineIdx) => (
+            <div 
+              key={lineIdx}
+              className="absolute w-full h-full"
+              style={{
+                transform: `rotate(${lineIdx * 15 - 90}deg) scale(${1 + lineIdx * 0.1})`,
+                opacity: 0.15 + (lineIdx % 3) * 0.1,
+              }}
+            >
+              {[...Array(15)].map((_, dotIdx) => (
+                <motion.div
+                  key={dotIdx}
+                  className="absolute bg-black dark:bg-white rounded-full"
+                  style={{
+                    width: "1.5px",
+                    height: "1.5px",
+                    left: "50%",
+                    top: "50%",
+                  }}
+                  animate={{
+                    x: [
+                      Math.cos(dotIdx * 0.3) * (150 + lineIdx * 40),
+                      Math.cos(dotIdx * 0.3 + 0.5) * (180 + lineIdx * 40),
+                      Math.cos(dotIdx * 0.3) * (150 + lineIdx * 40),
+                    ],
+                    y: [
+                      Math.sin(dotIdx * 0.3) * (150 + lineIdx * 40),
+                      Math.sin(dotIdx * 0.3 + 0.5) * (180 + lineIdx * 40),
+                      Math.sin(dotIdx * 0.3) * (150 + lineIdx * 40),
+                    ],
+                    opacity: [0.2, 0.6, 0.2],
+                    scale: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{
+                    duration: 12 + Math.random() * 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: dotIdx * 0.2,
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Hero Content starts here... */}
 
       <Container size="large" className="relative z-10 py-20 lg:py-0">
         <div className="relative flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -76,7 +123,7 @@ assert:
             </span>
 
             {/* Clean, high-contrast headline */}
-            <h1 className="font-semibold text-5xl md:text-6xl lg:text-7xl tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.1]">
+            <h1 className="font-semibold text-5xl md:text-6xl lg:text-7xl tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.0]">
               Reduce API{" "}
               <span className="text-blue-600 dark:text-blue-500">
                 regression cost
@@ -86,7 +133,7 @@ assert:
             </h1>
 
             {/* Simplified Subheadline */}
-            <p className="text-xl text-gray-500 dark:text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+            <p className="text-xl text-gray-500 dark:text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-snug font-medium">
               Streamline your testing with readable YAML specs. Built for modern teams who want safety without the heavy lifting.
             </p>
 
