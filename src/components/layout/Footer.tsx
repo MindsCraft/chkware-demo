@@ -40,7 +40,7 @@ export function Footer() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
 
       {/* Decorative Grid Pattern */}
-      <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-[0.02] dark:opacity-[0.05] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_0%,#000_100%,transparent_100%)] opacity-30 dark:opacity-50 pointer-events-none"></div>
 
       {/* Subtle Glow Orbs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none mix-blend-multiply dark:mix-blend-screen"></div>
