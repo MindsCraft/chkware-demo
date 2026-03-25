@@ -124,7 +124,7 @@ export function generateMetadata(config: Partial<SEOConfig> = {}): Metadata {
   const seoConfig = { ...defaultSEO, ...config };
   
   return {
-    metadataBase: new URL(seoConfig.canonicalUrl || 'https://chkware.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || seoConfig.canonicalUrl || 'https://chkware.com'),
     title: seoConfig.title,
     description: seoConfig.description,
     keywords: seoConfig.keywords.join(', '),
